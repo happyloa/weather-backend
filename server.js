@@ -15,9 +15,16 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.json({
     message: "歡迎使用 CWA 天氣預報 API",
+    version: "1.0.0",
+    description: "提供台灣六都 36 小時天氣預報",
     endpoints: {
-      kaohsiung: "/api/weather/kaohsiung",
-      health: "/api/health",
+      taipei: "/api/weather/taipei", // 台北市
+      newTaipei: "/api/weather/newtaipei", // 新北市
+      taoyuan: "/api/weather/taoyuan", // 桃園市
+      taichung: "/api/weather/taichung", // 台中市
+      tainan: "/api/weather/tainan", // 台南市
+      kaohsiung: "/api/weather/kaohsiung", // 高雄市
+      health: "/api/health", // 健康檢查
     },
   });
 });
