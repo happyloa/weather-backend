@@ -1,11 +1,12 @@
 # CWA 天氣預報 API 服務
 
-這是一個使用 Node.js + Express 開發的天氣預報 API 服務，串接中央氣象署（CWA）開放資料平台，提供高雄市天氣預報資料。
+這是一個使用 Node.js + Express 開發的天氣預報 API 服務，串接中央氣象署（CWA）開放資料平台，提供台灣六都 36 小時天氣預報資料。
 
 ## 功能特色
 
 - ✅ 串接 CWA 氣象資料開放平台
-- ✅ 取得高雄市 36 小時天氣預報
+- ✅ 支援台灣六都天氣預報（台北、新北、桃園、台中、台南、高雄）
+- ✅ 提供 36 小時天氣預報
 - ✅ 環境變數管理
 - ✅ RESTful API 設計
 - ✅ CORS 支援
@@ -71,7 +72,14 @@ GET /
 ```json
 {
   "message": "歡迎使用 CWA 天氣預報 API",
+  "version": "1.0.0",
+  "description": "提供台灣六都 36 小時天氣預報",
   "endpoints": {
+    "taipei": "/api/weather/taipei",
+    "newTaipei": "/api/weather/newtaipei",
+    "taoyuan": "/api/weather/taoyuan",
+    "taichung": "/api/weather/taichung",
+    "tainan": "/api/weather/tainan",
     "kaohsiung": "/api/weather/kaohsiung",
     "health": "/api/health"
   }
@@ -89,34 +97,63 @@ GET /api/health
 ```json
 {
   "status": "OK",
-  "timestamp": "2025-09-30T12:00:00.000Z"
+  "timestamp": "2025-11-27T06:43:15.157Z"
 }
 ```
 
-### 3. 取得高雄天氣預報
+### 3. 取得各縣市天氣預報
+
+#### 可用的端點：
+
+- `GET /api/weather/taipei` - 台北市
+- `GET /api/weather/newtaipei` - 新北市
+- `GET /api/weather/taoyuan` - 桃園市
+- `GET /api/weather/taichung` - 台中市
+- `GET /api/weather/tainan` - 台南市
+- `GET /api/weather/kaohsiung` - 高雄市
+
+#### 回應範例（以桃園市為例）：
 
 ```
-GET /api/weather/kaohsiung
+GET /api/weather/taoyuan
 ```
-
-回應範例：
 
 ```json
 {
   "success": true,
   "data": {
-    "city": "高雄市",
-    "updateTime": "資料更新時間說明",
+    "city": "桃園市",
+    "updateTime": "三十六小時天氣預報",
     "forecasts": [
       {
-        "startTime": "2025-09-30 18:00:00",
-        "endTime": "2025-10-01 06:00:00",
-        "weather": "多雲時晴",
+        "startTime": "2025-11-27 12:00:00",
+        "endTime": "2025-11-27 18:00:00",
+        "weather": "多雲",
         "rain": "10%",
-        "minTemp": "25°C",
-        "maxTemp": "32°C",
-        "comfort": "悶熱",
-        "windSpeed": "偏南風 3-4 級"
+        "minTemp": "19°C",
+        "maxTemp": "23°C",
+        "comfort": "稍有寒意至舒適",
+        "windSpeed": ""
+      },
+      {
+        "startTime": "2025-11-27 18:00:00",
+        "endTime": "2025-11-28 06:00:00",
+        "weather": "陰天",
+        "rain": "10%",
+        "minTemp": "16°C",
+        "maxTemp": "19°C",
+        "comfort": "寒冷至稍有寒意",
+        "windSpeed": ""
+      },
+      {
+        "startTime": "2025-11-28 06:00:00",
+        "endTime": "2025-11-28 18:00:00",
+        "weather": "晴時多雲",
+        "rain": "10%",
+        "minTemp": "16°C",
+        "maxTemp": "22°C",
+        "comfort": "寒冷至舒適",
+        "windSpeed": ""
       }
     ]
   }
